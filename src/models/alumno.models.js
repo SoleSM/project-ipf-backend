@@ -7,7 +7,7 @@ const AlumnoSchema = new Schema(
         carrera: { type: Schema.Types.ObjectId, ref: 'Carrera' },
 
         // ???? duda
-        notas: { type: Number }
+        notas: { type: Schema.Types.ObjectId, ref:"Notas" },
 
 
     }
