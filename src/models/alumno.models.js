@@ -1,4 +1,8 @@
 const { model, Schema } = require("mongoose");
+const {} = require("./user.models");
+const {} = require("./carrera.models");
+const {} = require("./notas.models");
+
 
 const AlumnoSchema = new Schema(
     {

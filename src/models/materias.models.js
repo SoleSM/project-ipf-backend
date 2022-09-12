@@ -1,4 +1,5 @@
 const { model, Schema } = require("mongoose");
+const {} = require("./carrera.models");
 
 const MateriaSchema = new Schema(
     {

@@ -1,4 +1,5 @@
 const { model, Schema } = require("mongoose");
+const {} = require("./materias.models");
 
 const NotasSchema = new Schema(
     {
