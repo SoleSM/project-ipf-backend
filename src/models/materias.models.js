@@ -9,18 +9,17 @@ const MateriaSchema = new Schema(
         alumnos: [
             { type: Schema.Types.ObjectId, ref: "User" }
         ],
-        asistencias: {
-            tipo: ["P", "A"],
-            fecha: { type: Date },
-            alumno: { type: Schema.Types.ObjectId, ref: "User" }
-        },
+        inasistencias: [
+            {
+                fecha: { type: Date },
+                alumnos: [{ type: Schema.Types.ObjectId, ref: "User" }]
+            }
+        ],
         notas: [
             {
                 alumno: { type: Schema.Types.ObjectId, ref: "User" },
-                primerParcial: { type: Number, required: true },
-                segundoParcial: { type: Number, required: true },
-                recuperatorio: { type: Number, required: true },
-                final: { type: Number, required: true }
+                tipo: { type: String, enum: ["Primer parcial", "Segundo Parcial", "Recuperatorio", "Final"] },
+                calificacion: { type: Number, required: true }
             }
         ]
 

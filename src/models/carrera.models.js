@@ -11,6 +11,7 @@ const CarreraSchema = new Schema(
         cursos: [
             {
                 anio: { type: String, required: true },
+                ciclo_lectivo: { type: String, require: true }
             }
         ],
         active: { type: Boolean, default: true}
