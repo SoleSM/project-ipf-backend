@@ -8,6 +8,11 @@ const CarreraSchema = new Schema(
         materias: [
             { type: Schema.Types.ObjectId, ref:"Materia" }
         ],
+        cursos: [
+            {
+                anio: { type: String, required: true },
+            }
+        ],
         active: { type: Boolean, default: true}
 
 
