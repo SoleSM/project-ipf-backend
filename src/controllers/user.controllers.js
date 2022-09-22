@@ -20,11 +20,11 @@ ctrlUser.rutaGetDNI = async (req,res)=>{
 ctrlUser.rutaPost = async (req,res)=>{
      
         const { nombre, apellido, numeroDni, sexo, fechaDeNacimiento,
-        email, password } = req.body;
+        email, password, tipo, dataAlumno, dataProfesor, dataAdmin } = req.body;
 
         try {
             const usuario = new User({nombre, apellido, numeroDni, sexo, fechaDeNacimiento,
-                email, password});
+                email, password, tipo, dataAlumno, dataProfesor, dataAdmin});
 
             //Guardar usuario en db
             await usuario.save();
