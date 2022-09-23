@@ -13,10 +13,10 @@ const UserSchema = new Schema(
         tipo: { type: String, enum: ["alumno", "profesor", "administrador"] },
         dataAlumno: {
             direccion: {
-               barrio: {type: String, required:true},
-               calle: { type: String, required: true}
+               barrio: {type: String },
+               calle: { type: String }
             },
-            secundaroCompleto: {type: Boolean, required: true}
+            secundaroCompleto: { type: Boolean, required: true }
         },
         dataProfesor: {
             titulo: { type: String }
