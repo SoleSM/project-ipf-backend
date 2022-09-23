@@ -1,7 +1,7 @@
 **Modelado de datos**
 
 *User model*
-~~
+~
  {
         nombre: { type: String, required: true },
         apellido: { type: String, required: true },
@@ -24,10 +24,10 @@
         }
 
     }
-~~
+~
 
 *Materias model*
-~~
+~
    {
         nombre: { type: String, required: true },
         profesores: [
@@ -52,10 +52,10 @@
 
 
     }
-~~
+~
 
 *Carrera Model*
-~~
+~
     {
         nombre: { type: String, required: true },
         duracion: { type: Number, required: true },
@@ -72,11 +72,13 @@
 
 
     }
-~~
+~
 
 *Publicaciones Model*
-~~
- {
+<pre>
+    <code>
+
+     {
       usuario: { type: Schema.Types.ObjectId, ref: "User"},
       texto: { type : String, required: true},
       date:  Date.now(),
@@ -91,4 +93,6 @@
       tipo: { type: String, enum: ["general", "particular"]},
       materia: { type: Schema.Types.ObjectId, ref: "Materia" }
     }
-~~
+
+    </code>
+</pre>
