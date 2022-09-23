@@ -1,8 +1,10 @@
 **Modelado de datos**
 
 *User model*
-~
- {
+
+<pre>
+    <code>
+     {
         nombre: { type: String, required: true },
         apellido: { type: String, required: true },
         numeroDni: { type: String, required: true },
@@ -22,13 +24,17 @@
         dataProfesor: {
             titulo: { type: String }
         }
-
     }
-~
+    </code>
+</pre>
+
+
 
 *Materias model*
-~
-   {
+
+<pre>
+    <code>
+     {
         nombre: { type: String, required: true },
         profesores: [
             { type: Schema.Types.ObjectId, ref: "User" }
@@ -49,13 +55,16 @@
                 calificacion: { type: Number, required: true }
             }
         ]
-
-
     }
-~
+    </code>
+</pre>
 
-*Carrera Model*
-~
+
+
+*Carrera model*
+
+<pre>
+    <code>
     {
         nombre: { type: String, required: true },
         duracion: { type: Number, required: true },
@@ -69,12 +78,13 @@
             }
         ],
         active: { type: Boolean, default: true}
-
-
     }
-~
+    </code>
+</pre>
+    
 
-*Publicaciones Model*
+
+*Publicaciones model*
 <pre>
     <code>
 
