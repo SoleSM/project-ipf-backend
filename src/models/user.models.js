@@ -16,7 +16,7 @@ const UserSchema = new Schema(
                barrio: {type: String },
                calle: { type: String }
             },
-            secundaroCompleto: { type: Boolean, required: true }
+            secundarioCompleto: { type: Boolean, required: true }
         },
         dataProfesor: {
             titulo: { type: String }

@@ -8,12 +8,6 @@ ctrlUser.rutaGet = async (req,res)=>{
         res.json(usuario);
 };
 
-//mostrar usuarios por DNI
-ctrlUser.rutaGetDNI = async (req,res)=>{
-    const { numeroDni } = req.params;
-    const usuario = await User.find(numeroDni);
-    res.json(usuario);
-};
 
 //agrega el usuario
 
@@ -44,12 +38,11 @@ ctrlUser.rutaPost = async (req,res)=>{
 
 ctrlUser.rutaPut = async (req , res)=>{
 
-        const { id } = req.params;
-        const { _id, email, password, ...resto } = req.body;
+        const { _id,...resto } = req.body;
 
         try {
         
-            const usuario = await User.findByIdAndUpdate(id, resto, { new: true });
+            const usuario = await User.findByIdAndUpdate(_id, resto, {new: true});
 
             res.json({
                 msg: 'Datos del usuario actualizados exitosamente',
@@ -65,19 +58,19 @@ ctrlUser.rutaPut = async (req , res)=>{
 // eliminacion logica
 ctrlUser.rutaLogicalDelete= async (req, res)=>{
 
-        const { id } = req.params;
+        const {_id } = req.params;
         try {
             //Verifico que el usuario este activo
-            const inactivo = await User.findById(id);
+            const activo = await User.findById(_id);
 
             /* console.log(inactivo) */
-            if (!inactivo.estado) {
+            if (!activo.estado) {
                 return res.json({
-                    msg: `El usuario ${id} no existe`
+                    msg: `El usuario ${_id} no existe`
                 });
             };
 
-            const usuario = await User.findByIdAndUpdate(id, { estado: false });
+            const usuario = await User.findByIdAndUpdate(_id, { active: false });
 
             res.json({
                 msg: 'Usuario borrado de la base de datos exitosamente',
