@@ -1,5 +1,37 @@
 const ctrlUser = {};
 const User = require('../models/user.models');
+const generarJWT = require("../helpers/generarJWT");
+
+// POST -> Ctrl para Login de usuario
+ctrlUser.login = async (req, res) => {
+
+    const { email, password } = req.body;
+ 
+    if (!email || !password) {
+       return res.status(400).json({
+          msg: 'Error de autenticación'
+       })
+    };
+ 
+ 
+    // Busqueda del usuario segun las credenciales recibidas
+    const user = await User.findOne({ email, password });
+ 
+    if (!user.active) {
+       return res.status(400).json({
+          msg: 'Error al autenticarse, verifique las credenciales'
+       })
+    };
+ 
+    // Generación del token de autenticación
+    const token = await generarJWT({uid: user._id});
+ 
+    return res.json({
+       user,
+       token: token
+    });
+ 
+ }
 
 //mostrar todos los usuarios
 ctrlUser.rutaGet = async (req,res)=>{
