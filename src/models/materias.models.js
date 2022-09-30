@@ -11,15 +11,16 @@ const MateriaSchema = new Schema(
         ],
         inasistencias: [
             {
-                fecha: { type: Date },
+                fecha:  { type : Date, default: Date.now() },
                 alumnos: [{ type: Schema.Types.ObjectId, ref: "User" }]
             }
         ],
         notas: [
             {
+                período: {enum: ["Primer cuatrimestre", "Segundo cuatrimestre"]},
                 alumno: { type: Schema.Types.ObjectId, ref: "User" },
                 tipo: { type: String, enum: ["Primer parcial", "Segundo Parcial", "Recuperatorio", "Final"] },
-                calificacion: { type: Number, required: true }
+                calificacion: { type: Number }
             }
         ]
 

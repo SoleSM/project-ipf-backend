@@ -4,8 +4,8 @@ const { rutaGet, rutaPost, rutaPut, rutaLogicalDelete} = require("../controllers
 
 router.get('/get-user', rutaGet);
 router.post('/add-user', rutaPost);
-router.put('/update:id', rutaPut);
-router.delete('/delete:id', rutaLogicalDelete);
+router.put('/:id', rutaPut);
+router.delete('/:id', rutaLogicalDelete);
 
 
 

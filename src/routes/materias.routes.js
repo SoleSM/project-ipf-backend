@@ -1,10 +1,9 @@
 const router = require('express').Router();
 
-const { } = require('../controllers/materia.controllers');
+const { getMateria, postMateria, putMateria } = require('../controllers/materia.controllers');
 
-router.get('/get-materias', getMateria);
-router.post('/add-materia', postMateria);
-router.put('/update:id', putMateria)
-router.delete('/delete-materia', deleteMateria);
+router.get('/', getMateria);
+router.post('/', postMateria);
+router.put('/:id', putMateria)
 
 module.exports = router;
