@@ -11,10 +11,10 @@ check('texto')
 .isString().isLength({max: 500}),
 
 check('archivos')
-.isURL(),
+.isURL().optional(),
 
 check('comments')
-.isArray(),
+.isArray().optional(),
 
 check('tipo')
 .notEmpty().withMessage(mensajeValidacion)

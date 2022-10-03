@@ -3,7 +3,7 @@ const User = require('../models/user.models');
 const generarJWT = require("../helpers/generarJWT");
 
 // POST -> Ctrl para Login de usuario
-ctrlUser.login = async (req, res) => {
+ctrlUser.login = async(req, res) => {
 
     const { email, password } = req.body;
 
@@ -38,17 +38,35 @@ ctrlUser.login = async (req, res) => {
 
 
 //mostrar todos los usuarios
-ctrlUser.rutaGet = async (req, res) => {
+ctrlUser.rutaGet = async(req, res) => {
 
     const usuario = await User.find();
     res.json(usuario);
 
 };
 
+//Mostrar alumno por DNI
+ctrlUser.rutaGetDNI = async(req, res) => {
+
+    const { numeroDni } = req.params
+    try {
+        const usuario = await User.findOne(numeroDni)
+        res.json({
+            msg: "Usuario encontrado",
+            usuario
+        })
+    } catch (error) {
+        res.json({
+            msg:"Usuario no encontrado"
+        })
+    }
+  
+
+}
 
 //agrega el usuario
 
-ctrlUser.rutaPost = async (req, res) => {
+ctrlUser.rutaPost = async(req, res) => {
 
     const { nombre, apellido, numeroDni, sexo, fechaDeNacimiento,
         email, password, tipo, dataAlumno, dataProfesor, dataAdmin } = req.body;
@@ -75,7 +93,7 @@ ctrlUser.rutaPost = async (req, res) => {
 
 //edita el usuario
 
-ctrlUser.rutaPut = async (req, res) => {
+ctrlUser.rutaPut = async(req, res) => {
 
 
     const { id } = req.params;
@@ -97,7 +115,7 @@ ctrlUser.rutaPut = async (req, res) => {
 };
 
 // eliminacion logica
-ctrlUser.rutaLogicalDelete = async (req, res) => {
+ctrlUser.rutaLogicalDelete = async(req, res) => {
 
     let { id } = req.params;
 

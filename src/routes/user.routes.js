@@ -1,11 +1,12 @@
 const router = require("express").Router();
-const { rutaGet, rutaPost, rutaPut, rutaLogicalDelete, login } = require("../controllers/user.controllers")
+const { rutaGet, rutaPost, rutaPut, rutaLogicalDelete, login, rutaGetDNI } = require("../controllers/user.controllers")
 const validarCampos = require('../helpers/validarCampos');
 const { validarJWT, validarUser } = require('../middlewares/index')
 
 
 //Routes
-router.get('/', rutaGet);
+router.get('/');
+router.get('/:dni', rutaGetDNI)
 router.post('/',
 [
     validarJWT,

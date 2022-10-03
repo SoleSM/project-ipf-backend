@@ -14,7 +14,7 @@ router.get('/', getPublicaciones);
 
 router.post('/',
 [
-  validarJWT,
+
   validarPublicaciones,
   validarCampos
 ],postPublicaciones);
