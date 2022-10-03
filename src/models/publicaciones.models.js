@@ -16,7 +16,7 @@ const PublicacionesSchema = new Schema(
             date:  { type : Date, default: Date.now() },
         }
       ],
-      tipo: { type: String, enum: ["general", "particular"], required:true },
+      tipo: { type: String, required: true },
       materia: { type: Schema.Types.ObjectId, ref: "Materia" }
     }
 )

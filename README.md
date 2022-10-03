@@ -6,4 +6,5 @@
 4. 12-09-22: Realización de controllers de usuarios, profesores, alumnos ✔ ---modificado
 5. 20-09-22: Modificación de modelado de datos, modelos finales: carrera, materias, publicaciones y user ✔
 6. 30-09-22: Rutas y Controllers: Usuarios, Materias, Publicaciones y Carrera ✔
-7. 02-10-22: Validaciones y generación de JWT ✔
+7. 02-10-22: Validaciones de User y generación de JWT ✔
+8. 03-10-22: Validacion de JWT, validaciones de carrera, publicaciones y materias ✔

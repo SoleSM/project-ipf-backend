@@ -6,12 +6,32 @@ const {
     putPublicaciones,
     deletePublicaciones
 } = require('../controllers/publicaciones.controllers');
+const { validarJWT, validarPublicaciones} = require('../middlewares/index')
+const validarCampos = require('../helpers/validarCampos');
 
-
+//Rutas
 router.get('/', getPublicaciones);
-router.post('/', postPublicaciones);
-router.put('/:id', putPublicaciones);
-router.delete('/:id', deletePublicaciones);
+
+router.post('/',
+[
+  validarJWT,
+  validarPublicaciones,
+  validarCampos
+],postPublicaciones);
+
+router.put('/:id',
+[
+validarJWT,
+validarPublicaciones,
+validarCampos
+],putPublicaciones);
+
+router.delete('/:id',
+[
+validarJWT,
+validarPublicaciones,
+validarCampos
+],deletePublicaciones);
 
 
 module.exports = router;

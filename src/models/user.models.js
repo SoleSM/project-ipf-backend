@@ -2,7 +2,7 @@ const { model, Schema } = require("mongoose");
 
 const UserSchema = new Schema(
     {
-        nombre: { type: String, required: true },
+        nombre: { type: String },
         apellido: { type: String, required: true },
         numeroDni: { type: String, required: true },
         sexo: { type: String, enum: ["Femenino", "Masculino", "Indefinido", "Otros"] },
@@ -10,7 +10,7 @@ const UserSchema = new Schema(
         email: { type: String, required: true },
         password: { type: String, required: true },
         active: { type: Boolean, default: true },
-        tipo: { type: String, enum: ["alumno", "profesor", "administrador"] },
+        tipo: { type: String},
         dataAlumno: {
             direccion: {
                barrio: {type: String },
