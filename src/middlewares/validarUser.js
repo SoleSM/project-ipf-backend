@@ -1,6 +1,6 @@
 const { check } = require('express-validator');
 
-const mensajeValidacion = {msg:"Todos los campos son requeridos"};
+const mensajeValidacion = "Todos los campos son requeridos";
 
 
 const validarUser = [
@@ -30,11 +30,12 @@ const validarUser = [
     
     check('password')
     .notEmpty().withMessage(mensajeValidacion)
-    .isAlphanumeric().isLength({ min:5, max:15 }),
+    .isAlphanumeric().isLength({ min:5, max:15 })
+    .withMessage("La contraseña debe contener entre 5 y 15 caracteres"),
     
     check('tipo')
     .notEmpty().withMessage(mensajeValidacion)
-    .isIn(["alumno", "profesor", "administrador"]).withMessage({msg:"El rol que especifica no corresponde"}),
+    .isIn(["alumno", "profesor", "administrador"]).withMessage("El rol que especifica no corresponde"),
     
     check('dataAlumno.direccion.barrio')
     .notEmpty().withMessage(mensajeValidacion)

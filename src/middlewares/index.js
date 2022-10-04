@@ -3,6 +3,7 @@ const validarMateria = require('./validarMateria');
 const validarUser = require('./validarUser');
 const validarPublicaciones= require('./validarPublicaciones');
 const validarCarrera = require('./validarCarrera');
+const validacionesCustom = require('./custom');
 
 
 module.exports = {
@@ -10,6 +11,7 @@ module.exports = {
     validarMateria, 
     validarUser,
     validarPublicaciones,
-    validarCarrera
+    validarCarrera,
+    ...validacionesCustom
 
 }

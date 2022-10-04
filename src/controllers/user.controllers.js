@@ -1,6 +1,7 @@
 const ctrlUser = {};
 const User = require('../models/user.models');
 const generarJWT = require("../helpers/generarJWT");
+const bcrypt = require('bcrypt');
 
 // POST -> Ctrl para Login de usuario
 ctrlUser.login = async(req, res) => {
@@ -71,10 +72,12 @@ ctrlUser.rutaPost = async(req, res) => {
     const { nombre, apellido, numeroDni, sexo, fechaDeNacimiento,
         email, password, tipo, dataAlumno, dataProfesor, dataAdmin } = req.body;
 
+    const passwordHashed = bcrypt.hashSync(password,10);
+
     try {
         const usuario = new User({
             nombre, apellido, numeroDni, sexo, fechaDeNacimiento,
-            email, password, tipo, dataAlumno, dataProfesor, dataAdmin
+            email, password: passwordHashed, tipo, dataAlumno, dataProfesor, dataAdmin
         });
 
         //Guardar usuario en db
@@ -84,6 +87,7 @@ ctrlUser.rutaPost = async(req, res) => {
             msg: 'Usuario agregado exitosamente',
             usuario
         });
+        
     } catch (error) {
         console.log('Error al guardar los datos del usuario: ', error);
     };
