@@ -6,7 +6,7 @@ const { validarJWT, validarMateria } = require('../middlewares/index')
 router.get('/', getMateria);
 router.post('/',
 [
-
+validarJWT,
 validarMateria,
 validarCampos
 ], postMateria);

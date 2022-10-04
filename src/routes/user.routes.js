@@ -5,7 +5,7 @@ const { validarJWT, validarUser, existeEmail, existeDNI } = require('../middlewa
 
 
 //Routes
-router.get('/');
+router.get('/', rutaGet);
 router.get('/:dni', rutaGetDNI)
 router.post('/',
 [
@@ -19,14 +19,15 @@ router.post('/',
 router.post('/login', login)
 
 router.put('/:id',
-[   validarJWT,
+[  
+    validarJWT,
     validarUser,
     validarCampos
 ],rutaPut);
 
 router.delete('/:id',
 [
-validarJWT
+    validarJWT
 ],rutaLogicalDelete);
 
 

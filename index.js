@@ -3,6 +3,7 @@ const morgan = require("morgan");
 require("dotenv").config();
 require('./src/database/mongodb.connection');
 
+//Inicializamos el servidor
 const app = express();
 
 //Middlewares

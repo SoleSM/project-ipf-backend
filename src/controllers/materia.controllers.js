@@ -3,7 +3,7 @@ const Materia = require('../models/materias.models');
 
 
 //Mostrar todas las materias
-ctrlMateria.getMateria = async (req, res) => {
+ctrlMateria.getMateria = async(req, res) => {
 
     const materia = await Materia.find();
 
@@ -11,8 +11,7 @@ ctrlMateria.getMateria = async (req, res) => {
 
 };
 
-
-ctrlMateria.postMateria = async (req, res) => {
+ctrlMateria.postMateria = async(req, res) => {
 
     const { nombre, profesores, alumnos, inasistencias, notas} = req.body;
 
@@ -35,7 +34,7 @@ ctrlMateria.postMateria = async (req, res) => {
 
 }
 
-ctrlMateria.putMateria = async (req, res) => {
+ctrlMateria.putMateria = async(req, res) => {
 
     const { id } = req.params;
     const {...resto } = req.body;

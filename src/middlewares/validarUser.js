@@ -39,11 +39,11 @@ const validarUser = [
     
     check('dataAlumno.direccion.barrio')
     .notEmpty().withMessage(mensajeValidacion)
-    .isAlphanumeric(),
+    .isString(),
     
     check('dataAlumno.direccion.calle')
     .notEmpty().withMessage(mensajeValidacion)
-    .isAlphanumeric(),
+    .isString(),
     
     check('dataAlumno.secundarioCompleto')
     .optional().isBoolean(),

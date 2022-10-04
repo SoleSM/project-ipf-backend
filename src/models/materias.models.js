@@ -17,7 +17,7 @@ const MateriaSchema = new Schema(
         ],
         notas: [
             {
-                período: {enum: ["Primer cuatrimestre", "Segundo cuatrimestre"]},
+                periodo: {enum: ["Primer cuatrimestre", "Segundo cuatrimestre"]},
                 alumno: { type: Schema.Types.ObjectId, ref: "User" },
                 tipo: { type: String, enum: ["Primer parcial", "Segundo Parcial", "Recuperatorio", "Final"] },
                 calificacion: { type: Number }

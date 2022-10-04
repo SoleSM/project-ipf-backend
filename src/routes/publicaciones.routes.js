@@ -14,23 +14,23 @@ router.get('/', getPublicaciones);
 
 router.post('/',
 [
-
+  validarJWT,
   validarPublicaciones,
   validarCampos
 ],postPublicaciones);
 
 router.put('/:id',
 [
-validarJWT,
-validarPublicaciones,
-validarCampos
+  validarJWT,
+  validarPublicaciones,
+  validarCampos
 ],putPublicaciones);
 
 router.delete('/:id',
 [
-validarJWT,
-validarPublicaciones,
-validarCampos
+  validarJWT,
+  validarPublicaciones,
+  validarCampos
 ],deletePublicaciones);
 
 
