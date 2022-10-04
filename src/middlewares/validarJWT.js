@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.models');
-const { SECRET } = require('../config/variables');
 
 const validarJWT = async(req, res, next) => {
 
@@ -18,7 +17,7 @@ const validarJWT = async(req, res, next) => {
         
         //Verifica que el token sea válido
         //Se vuelve a firmar el token y si coincide con el recibido, es válido
-        const { uid } = jwt.verify(token, SECRET);
+        const { uid } = jwt.verify(token, process.env.SECRET);
 
         //Busca el usuario por id 
         const usuario = await User.findById(uid);
