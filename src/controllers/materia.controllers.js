@@ -11,6 +11,37 @@ ctrlMateria.getMateria = async(req, res) => {
 
 };
 
+ctrlMateria.getNotaAlumno = async(req, res) => {
+    const { alumno, nombre} = req.body;
+
+    console.log(nombre)
+    try {
+
+        const MateriaEncontrada = await Materia.findOne({
+            nombre
+        })
+
+        console.log(MateriaEncontrada.notas)
+        const alumnoEncontrado = await MateriaEncontrada.notas.find({alumno})
+
+        res.json({
+            msg: "Alumno encontrado",
+            MateriaEncontrada,
+            "alumno": alumnoEncontrado
+        })
+        
+    } catch (error) {
+        res.json({
+            msg: "Error Alumno NO encontrado",
+            error
+        })
+    }
+
+  
+
+
+};
+
 ctrlMateria.postMateria = async(req, res) => {
 
     const { nombre, profesores, alumnos, inasistencias, notas} = req.body;

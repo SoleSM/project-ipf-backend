@@ -1,9 +1,11 @@
 const router = require('express').Router();
-const { getMateria, postMateria, putMateria } = require('../controllers/materia.controllers');
+const { getMateria, postMateria, putMateria, getNotaAlumno } = require('../controllers/materia.controllers');
 const validarCampos = require('../helpers/validarCampos');
 const { validarJWT, validarMateria } = require('../middlewares/index')
 
 router.get('/', getMateria);
+
+router.get('/alumno-nota', getNotaAlumno);
 router.post('/',
 [
 validarJWT,
