@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getMateria, postMateria, putMateria, getNotaAlumno } = require('../controllers/materia.controllers');
+const { getMateria, postMateria, putMateria, getNotaAlumno, putNotaDeAlumno } = require('../controllers/materia.controllers');
 const validarCampos = require('../helpers/validarCampos');
 const { validarJWT, validarMateria } = require('../middlewares/index')
 
@@ -21,4 +21,5 @@ validarMateria,
 validarCampos
 ],putMateria)
 
+router.put('/modificarNota/:id/:idNota', putNotaDeAlumno )
 module.exports = router;

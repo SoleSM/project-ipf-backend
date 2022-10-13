@@ -20,7 +20,7 @@ ctrlMateria.getNotaAlumno = async (req, res) => {
 
         const { notas } = MateriaEncontrada
 
-        const Notas = notas.filter(Element => Element.alumno == idAlumno)
+        const Notas = notas.filter(element => element.alumno == idAlumno)
 
         //    const NotaFinal  =  Nota.filter((data, key) => {
         //         const { alumno } = data
@@ -45,17 +45,45 @@ ctrlMateria.getNotaAlumno = async (req, res) => {
 
 };
 
-
 ctrlMateria.putNotaDeAlumno = async (req, res)=> {
 
-    const { id } = req.params.id;
+ 
     
-
     try {
+    
         
+        const { periodo, tipo, calificacion } = req.body;
+        const { idMateria, idNota } = req.params;
+    
+        const MateriaEncontrada = await Materia.findOne({idMateria})
+        const { notas } = MateriaEncontrada;
+        
+        const objetoNota = notas.findIndex((obj => obj._id == idNota));
+      
+        console.log(notas[objetoNota]._id)
+
+        if( idNota == notas[objetoNota]._id){
+
+            const NotaActualizada = MateriaEncontrada.findByIdAndUpdate(notas[objetoNota]._id, {periodo, tipo, calificacion})
+
+            console.log(NotaActualizada)
+         
+            res.json(NotaActualizada)
+            
+        }
+        
+        
+       
+        
+
 
     } catch (error) {
-        
+        res.json({
+            "error": error
+        })
+
+
+        console.log(error)
     }
 
 }
