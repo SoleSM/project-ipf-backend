@@ -3,7 +3,7 @@ const mensajeValidacion = "Todos los campos son requeridos";
 
 const validarMateria = [
 
-check('nombre')
+check('nombreMateria')
 .notEmpty().withMessage(mensajeValidacion)
 .isString(),
 

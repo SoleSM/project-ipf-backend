@@ -5,7 +5,8 @@ const { validarJWT, validarMateria } = require('../middlewares/index')
 
 router.get('/', getMateria);
 
-router.get('/alumno-nota', getNotaAlumno);
+router.get('/alumnoNota/:id', getNotaAlumno);
+
 router.post('/',
 [
 validarJWT,

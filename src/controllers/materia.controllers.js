@@ -3,33 +3,39 @@ const Materia = require('../models/materias.models');
 
 
 //Mostrar todas las materias
-ctrlMateria.getMateria = async(req, res) => {
+ctrlMateria.getMateria = async (req, res) => {
 
     const materia = await Materia.find();
-
     res.json(materia)
-
 };
 
-ctrlMateria.getNotaAlumno = async(req, res) => {
-    const { alumno, nombre} = req.body;
 
-    console.log(nombre)
+ctrlMateria.getNotaAlumno = async (req, res) => {
+
+    const { id } = req.params.id;
+    const { idAlumno } = req.body;
+
     try {
+        const MateriaEncontrada = await Materia.findOne({ id, notas: { $elemMatch: { alumno: idAlumno } } })
 
-        const MateriaEncontrada = await Materia.findOne({
-            nombre
-        })
+        const { notas } = MateriaEncontrada
 
-        console.log(MateriaEncontrada.notas)
-        const alumnoEncontrado = await MateriaEncontrada.notas.find({alumno})
+        const Notas = notas.filter(Element => Element.alumno == idAlumno)
 
+        //    const NotaFinal  =  Nota.filter((data, key) => {
+        //         const { alumno } = data
+        //         if(alumno == idAlumno) {
+        //             return Nota[key].calificacion;
+        //         }
+        //     })
+
+        console.log(Notas)
         res.json({
-            msg: "Alumno encontrado",
-            MateriaEncontrada,
-            "alumno": alumnoEncontrado
+            msg: "Materia encontrada",
+            Notas
+
         })
-        
+
     } catch (error) {
         res.json({
             msg: "Error Alumno NO encontrado",
@@ -37,17 +43,29 @@ ctrlMateria.getNotaAlumno = async(req, res) => {
         })
     }
 
-  
-
-
 };
 
-ctrlMateria.postMateria = async(req, res) => {
 
-    const { nombre, profesores, alumnos, inasistencias, notas} = req.body;
+ctrlMateria.putNotaDeAlumno = async (req, res)=> {
+
+    const { id } = req.params.id;
+    
 
     try {
-        const materiaAdded = new Materia({nombre, profesores, alumnos, inasistencias, notas})
+        
+
+    } catch (error) {
+        
+    }
+
+}
+
+ctrlMateria.postMateria = async (req, res) => {
+
+    const { nombreMateria, profesores, alumnos, inasistencias, notas } = req.body;
+
+    try {
+        const materiaAdded = new Materia({ nombreMateria, profesores, alumnos, inasistencias, notas })
         await materiaAdded.save();
 
         res.json({
@@ -57,41 +75,33 @@ ctrlMateria.postMateria = async(req, res) => {
 
     } catch (error) {
         res.json({
-            msg:"Error al agregar una materia",error
+            msg: "Error al agregar una materia", error
         })
-        console.log("Error al agregar una materia",error)
+        console.log("Error al agregar una materia", error)
     }
 
 
 }
 
-ctrlMateria.putMateria = async(req, res) => {
+ctrlMateria.putMateria = async (req, res) => {
 
     const { id } = req.params;
-    const {...resto } = req.body;
+    const { ...resto } = req.body;
 
     try {
-    
-        const materiaUpdated = await Materia.findByIdAndUpdate( id, resto, {new:true})
-
+        const materiaUpdated = await Materia.findByIdAndUpdate(id, resto, { new: true })
         res.json({
             msg: "Datos de la materia actualizados correctamente",
             materiaUpdated
         })
 
     } catch (error) {
-
         res.json({
-            msg:"Error al actualizar la materia",error
+            msg: "Error al actualizar la materia", error
         })
 
     }
 
 }
-
-
-
-
-
 
 module.exports = ctrlMateria;

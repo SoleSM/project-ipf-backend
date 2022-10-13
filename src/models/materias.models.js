@@ -2,7 +2,7 @@ const { model, Schema } = require("mongoose");
 
 const MateriaSchema = new Schema(
     {
-        nombre: { type: String, required: true },
+        nombreMateria: { type: String, required: true },
         profesores: [
             { type: Schema.Types.ObjectId, ref: "User" }
         ],

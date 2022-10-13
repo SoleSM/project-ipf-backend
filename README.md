@@ -9,3 +9,4 @@
 7. 02-10-22: Validaciones de User y generación de JWT ✔
 8. 03-10-22: Validacion de JWT, validaciones de carrera, publicaciones y materias ✔
 9. 04-10-22: Validaciones custom: exitencia de email y dni en la bd | encriptacion de la contraseña ✔
+10. 12-10-22: Get de notas de un alumno por materia ✔
