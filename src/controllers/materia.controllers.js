@@ -42,19 +42,39 @@ ctrlMateria.getInasistenciasDia = async (req, res) => {
     const { id } = req.params;
 
     try {
-      const variable = await Materia.aggregate([
+      const inasistencias = await Materia.aggregate([
             {$match: {_id : new mongoose.Types.ObjectId(id)}},
             {$unwind: "$inasistencias"},
             {$project: {"inasistencias.fecha": 1, "inasistencias.alumnos": 1}}
         ])
 
-       console.log(variable)
-       res.json(variable)
+       console.log(inasistencias)
+       res.json(inasistencias)
     } catch (error) {
         res.json(error)
     }
     
 
+}
+
+ctrlMateria.getCountInasistencias = async (req, res) => {
+
+    const { id, idAlumno } = req.params;
+    try {
+        const totalInasistencias = await Materia.aggregate([
+            { $match: {_id : new mongoose.Types.ObjectId(id)}},
+            { $unwind: "$inasistencias"},
+            { $match: {"inasistencias.alumnos" : new mongoose.Types.ObjectId(idAlumno)} },
+            { $count: "Cantidad de inasistencias en esta materia"}
+    
+        ])
+        
+        res.json(totalInasistencias)
+    } catch (error) {
+        res.json(error);
+        console.log(error)
+    }
+   
 }
 
 ctrlMateria.putNotaDeAlumno = async (req, res) => {

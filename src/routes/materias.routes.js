@@ -5,7 +5,8 @@ const { getMateria,
     getNotaAlumno,
     putNotaDeAlumno,
     getInasistenciasDia,
-    putInasistencia
+    putInasistencia,
+    getCountInasistencias
 } = require('../controllers/materia.controllers');
 const validarCampos = require('../helpers/validarCampos');
 const { validarJWT, validarMateria } = require('../middlewares/index')
@@ -15,6 +16,8 @@ router.get('/', getMateria);
 router.get('/alumnoNota/:id', getNotaAlumno);
 
 router.get('/inasistencias/:id', getInasistenciasDia);
+
+router.get('/cant-inasistencias/:id/:idAlumno', getCountInasistencias);
 
 
 router.post('/',

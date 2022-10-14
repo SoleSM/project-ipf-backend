@@ -12,4 +12,4 @@
 10. 12-10-22: Get de notas de un alumno por materia ✔
 11. 13-10-22: Put de nota de alumno ✔
 12. 14-10-22: Get publicaciones por materia | Get alumnos x curso ✔
-13. 14-1022: Get insistencias por materia   | Put para agregar inasistencias x dia ✔
+13. 14-1022: Get insistencias por materia   | Put para agregar inasistencias x dia | Cantidad de inasistencias de alumno por materia ✔
