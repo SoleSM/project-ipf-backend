@@ -23,8 +23,6 @@ const MateriaSchema = new Schema(
                 calificacion: { type: Number }
             }
         ]
-
-
     }
 )
 

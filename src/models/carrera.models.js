@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose");
 const {} = require("./materias.models");
+const {} = require('./user.models')
 
 const CarreraSchema = new Schema(
     {
@@ -11,7 +12,10 @@ const CarreraSchema = new Schema(
         cursos: [
             {
                 anio: { type: String },
-                ciclo_lectivo: { type: String }
+                ciclo_lectivo: { type: String },
+                alumnos: [
+                    { type: Schema.Types.ObjectId, ref:"User"}
+                ]
             }
         ],
         active: { type: Boolean, default: true}

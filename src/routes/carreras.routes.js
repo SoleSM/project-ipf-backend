@@ -3,7 +3,8 @@ const {
     getCarrera,
     postCarrera,
     putCarrera,
-    deleteCarrera
+    deleteCarrera,
+    getAlumnosxCurso
     } = require("../controllers/carrera.controllers");
 const validarCampos = require('../helpers/validarCampos');
 const { validarCarrera, validarJWT} = require('../middlewares/index');
@@ -11,6 +12,8 @@ const { validarCarrera, validarJWT} = require('../middlewares/index');
 
 //Rutas
 router.get("/", getCarrera);
+
+router.get('/alumnos-curso/:idCarrera/:idCurso', getAlumnosxCurso);
 
 router.post("/",
 [
