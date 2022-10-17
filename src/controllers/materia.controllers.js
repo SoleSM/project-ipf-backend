@@ -66,9 +66,7 @@ ctrlMateria.getCountInasistencias = async (req, res) => {
             { $unwind: "$inasistencias"},
             { $match: {"inasistencias.alumnos" : new mongoose.Types.ObjectId(idAlumno)} },
             { $count: "Cantidad de inasistencias en esta materia"}
-    
         ])
-        
         res.json(totalInasistencias)
     } catch (error) {
         res.json(error);
