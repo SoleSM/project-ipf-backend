@@ -37,8 +37,8 @@ ctrlPublicaciones.postPublicaciones = async (req, res) => {
             msg: "Error al agregar una publicación", error
         });
     }
-
 }
+
 
 ctrlPublicaciones.putPublicaciones = async (req, res) => {
     const { id } = req.params;

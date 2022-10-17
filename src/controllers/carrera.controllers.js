@@ -1,5 +1,6 @@
 const ctrlCarrera = {};
 const Carrera = require("../models/carrera.models");
+const mongoose = require('mongoose')
 
 ctrlCarrera.getCarrera = async (req, res) => {
         const carrera = await Carrera.find();
@@ -10,12 +11,14 @@ ctrlCarrera.getAlumnosxCurso = async (req, res) => {
     const { idCarrera, idCurso } = req.params;   
    
     try {
-        const CarreraEncontrada = await Carrera.findOne({idCarrera});
-        const { cursos } = CarreraEncontrada;
-        const CursoEncontrado = cursos.filter(curso => curso._id == idCurso);
-        const [ {alumnos} ] = CursoEncontrado;
+        const ListaAlumnos = await Carrera.aggregate([
+            {$match: {_id: new mongoose.Types.ObjectId(idCarrera)}},
+            {$unwind: "$cursos"},
+            {$match: {"cursos._id": new mongoose.Types.ObjectId(idCurso)}},
+            {$project: {"cursos.alumnos": 1}}
+        ])
         res.json({
-            "Alumnos de este curso" : alumnos
+            "Alumnos de este curso" : ListaAlumnos
         })
     } catch (error) {
         console.log(error)
