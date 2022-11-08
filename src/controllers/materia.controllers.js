@@ -14,14 +14,12 @@ ctrlMateria.getNotaAlumno = async (req, res) => {
     const { alumno } = req.body;
 
     try {
-        
         const NotasDeAlumno = await Materia.aggregate([
             {$match: {_id: new mongoose.Types.ObjectId(id)}},
             {$unwind: "$notas"},
             {$match: {"notas.alumno" : new mongoose.Types.ObjectId(alumno)}},
             {$project: {"notas._id": 0, "profesores": 0, "alumnos": 0, "inasistencias": 0, "__v": 0}}
         ])
-
         console.log(NotasDeAlumno)
         res.json({
             msg: "Notas encontradas",
