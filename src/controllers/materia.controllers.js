@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 //Mostrar todas las materias
 ctrlMateria.getMateria = async (req, res) => {
     const materia = await Materia.find();
-    res.json(materia)
+    res.json( {ok: true,materia})
 };
 
 //Traer las notas de un alumno enviando por parametros el id de la materia
@@ -22,6 +22,7 @@ ctrlMateria.getNotaAlumno = async (req, res) => {
         ])
         console.log(NotasDeAlumno)
         res.json({
+            ok: true,
             msg: "Notas encontradas",
             NotasDeAlumno
         })
@@ -44,7 +45,7 @@ ctrlMateria.getInasistenciasDia = async (req, res) => {
             {$unwind: "$inasistencias"},
             {$project: {"inasistencias.fecha": 1, "inasistencias.alumnos": 1}}
         ])
-       res.json(inasistencias)
+       res.json({ ok: true, inasistencias})
     } catch (error) {
         res.json(error)
     }
@@ -63,7 +64,7 @@ ctrlMateria.getCountInasistencias = async (req, res) => {
             { $match: {"inasistencias.alumnos" : new mongoose.Types.ObjectId(idAlumno)} },
             { $count: "Cantidad de inasistencias en esta materia"}
         ])
-        res.json(totalInasistencias)
+        res.json({  ok: true, totalInasistencias})
     } catch (error) {
         res.json(error);
         console.log(error)
@@ -81,7 +82,7 @@ ctrlMateria.putInasistencia = async (req, res) => {
         {$push: {"inasistencias": inasistencias}}
       )
 
-       res.json(ArregloInaActualizado)
+       res.json({ ok: true, ArregloInaActualizado})
     } catch (error) {
         res.json(error)
     }
@@ -100,7 +101,7 @@ ctrlMateria.putNotaDeAlumno = async (req, res) => {
             "notas.$.periodo": periodo
         }})
         console.log(NotaActualizada)
-        res.json(NotaActualizada)
+        res.json({  ok: true, NotaActualizada})
     } catch (error) {
         res.json({
             "error": error
@@ -117,6 +118,7 @@ ctrlMateria.postMateria = async (req, res) => {
         const materiaAdded = new Materia({ nombreMateria, profesores, alumnos, inasistencias, notas })
         await materiaAdded.save();
         res.json({
+            ok: true,
             msg: "Materia agregada",
             materiaAdded
         })
@@ -136,6 +138,7 @@ ctrlMateria.putMateria = async (req, res) => {
     try {
         const materiaUpdated = await Materia.findByIdAndUpdate(id, resto, { new: true })
         res.json({
+            ok: true,
             msg: "Datos de la materia actualizados correctamente",
             materiaUpdated
         })

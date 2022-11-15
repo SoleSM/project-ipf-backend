@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require('cors')
 require("dotenv").config();
 require('./src/database/mongodb.connection');
 
@@ -9,7 +10,9 @@ const app = express();
 //Middlewares
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
+
 
 //Settings
 app.set("port", process.env.PORT || 4000);

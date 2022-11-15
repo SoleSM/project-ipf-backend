@@ -6,29 +6,52 @@ const bcrypt = require('bcrypt');
 // POST -> Ctrl para Login de usuario
 ctrlUser.login = async(req, res) => {
 
-    const { email, password } = req.body;
 
+    const { email, password } = req.body;
+    console.log(email)
+     // Busqueda del usuario segun las credenciales recibidas
+     const user = await User.findOne({email, password});
+
+     if (!user){
+        return res.status(404).json({
+            ok:false,
+            msg: 'Usted no esta registrado'
+        })
+    }
+
+      //Si el usuario está inactivo
+      if (!user.active) {
+        return res.status(400).json({
+            ok: false,
+            msg: 'Error al autenticarse, verifique las credenciales'
+        })
+    };
+     console.log("user",user)
+    // const validPassword = bcrypt.compareSync(password, user.password)
+    // if(!validPassword){
+    //     return res.json({
+    //         "msg": "Usuario / Password son incorrectas"
+    //     })
+    // }
     //Si no se envian el email o el password 
     if (!email || !password) {
         return res.status(400).json({
+            ok: false,
             msg: 'Error de autenticación'
         })
     };
 
-    // Busqueda del usuario segun las credenciales recibidas
-    const user = await User.findOne({ email, password });
+   
+   
+  
 
-    //Si el usuario está inactivo
-    if (!user.active) {
-        return res.status(400).json({
-            msg: 'Error al autenticarse, verifique las credenciales'
-        })
-    };
+   
 
     // Generación del token de autenticación
     const token = await generarJWT({ uid: user._id });
 
     return res.json({
+        ok: true,
         msg: "Usuario logueado exitosamente",
         user,
         token: token
@@ -42,7 +65,7 @@ ctrlUser.login = async(req, res) => {
 ctrlUser.rutaGet = async(req, res) => {
 
     const usuario = await User.find();
-    res.json(usuario);
+    res.json({ ok: true, usuario});
 
 };
 
@@ -53,11 +76,13 @@ ctrlUser.rutaGetDNI = async(req, res) => {
     try {
         const usuario = await User.findOne(numeroDni)
         res.json({
+            ok: true,
             msg: "Usuario encontrado",
             usuario
         })
     } catch (error) {
         res.json({
+            ok: false,
             msg:"Usuario no encontrado"
         })
     }
@@ -84,12 +109,15 @@ ctrlUser.rutaPost = async(req, res) => {
         await usuario.save();
 
         res.json({
+            ok: true,
             msg: 'Usuario agregado exitosamente',
             usuario
         });
         
     } catch (error) {
-        console.log('Error al guardar los datos del usuario: ', error);
+        res.json({
+            ok: false, 
+            error: 'Error al guardar los datos del usuario'});
     };
 };
 
@@ -108,6 +136,7 @@ ctrlUser.rutaPut = async(req, res) => {
         const userUpdated = await User.findByIdAndUpdate(id, resto, { new: true })
 
         return res.json({
+            ok: true,
             msg: 'Datos actualizados correctamente!',
             user: userUpdated
         })
@@ -128,6 +157,7 @@ ctrlUser.rutaLogicalDelete = async(req, res) => {
     })
 
     return res.json({
+        ok: true,
         msg: 'Usuario eliminado correctamente!',
         user: userDeleted
     })

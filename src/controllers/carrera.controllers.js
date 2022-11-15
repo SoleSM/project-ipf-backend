@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 ctrlCarrera.getCarrera = async (req, res) => {
         const carrera = await Carrera.find();
-        res.json(carrera)
+        res.json( {ok: true, carrera})
 }
 
 ctrlCarrera.getAlumnosxCurso = async (req, res) => {
@@ -18,6 +18,7 @@ ctrlCarrera.getAlumnosxCurso = async (req, res) => {
             {$project: {"cursos.alumnos": 1}}
         ])
         res.json({
+            ok: true,
             "Alumnos de este curso" : ListaAlumnos
         })
     } catch (error) {
@@ -32,6 +33,7 @@ ctrlCarrera.postCarrera = async (req, res) => {
         const carreraAdded = new Carrera({nombre, duracion, materias, cursos});
         carreraAdded.save();
         res.json({
+            ok: true,
             msg:"Carrera agregada",
             carreraAdded
         })
@@ -49,6 +51,7 @@ ctrlCarrera.putCarrera = async (req, res) => {
     try {
         const carreraUpdated = await Carrera.findByIdAndUpdate(id, resto, { new:true });
         res.json({
+            ok: true,
             msg:"Carrera modificada", 
             carreraUpdated
         })
@@ -65,6 +68,7 @@ ctrlCarrera.deleteCarrera = async (req, res) => {
     try {
         const carreraDeleted = await Carrera.findByIdAndUpdate(id, { active: false });
         res.json({
+            ok: true,
             msg:"Carrera eliminada", 
             carreraDeleted
         })
