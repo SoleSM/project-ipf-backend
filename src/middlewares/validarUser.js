@@ -37,19 +37,6 @@ const validarUser = [
     .notEmpty().withMessage(mensajeValidacion)
     .isIn(["alumno", "profesor", "administrador"]).withMessage("El rol que especifica no corresponde"),
     
-    check('dataAlumno.direccion.barrio')
-    .notEmpty().withMessage(mensajeValidacion)
-    .isString(),
-    
-    check('dataAlumno.direccion.calle')
-    .notEmpty().withMessage(mensajeValidacion)
-    .isString(),
-    
-    check('dataAlumno.secundarioCompleto')
-    .optional().isBoolean(),
-    
-    check('dataProfesor.titulo')
-    .optional().isString()
 ]
 
 module.exports = validarUser;

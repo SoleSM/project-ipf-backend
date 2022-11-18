@@ -4,23 +4,14 @@ const UserSchema = new Schema(
     {
         nombre: { type: String },
         apellido: { type: String, required: true },
-        numeroDni: { type: String, required: true },
-        sexo: { type: String, enum: ["Femenino", "Masculino", "Indefinido", "Otros"] },
-        fechaDeNacimiento: { type: Date, required: true },
+        numeroDni: { type: String},
+        sexo: { type: String, enum: ["Femenino", "Masculino", "Otro"] },
+        fechaDeNacimiento: { type: Date, required: true},
         email: { type: String, required: true },
         password: { type: String, required: true },
         active: { type: Boolean, default: true },
-        tipo: { type: String},
-        dataAlumno: {
-            direccion: {
-               barrio: {type: String },
-               calle: { type: String }
-            },
-            secundarioCompleto: { type: Boolean, required: true }
-        },
-        dataProfesor: {
-            titulo: { type: String }
-        }
+        tipo: { type: String, required: true},
+       
 
     }
 )

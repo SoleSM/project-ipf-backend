@@ -4,56 +4,48 @@ const generarJWT = require("../helpers/generarJWT");
 const bcrypt = require('bcrypt');
 
 // POST -> Ctrl para Login de usuario
-ctrlUser.login = async(req, res) => {
-
+ctrlUser.login = async (req, res) => {
 
     const { email, password } = req.body;
-    console.log(email)
-     // Busqueda del usuario segun las credenciales recibidas
-     const user = await User.findOne({email, password});
 
-     if (!user){
-        return res.status(404).json({
-            ok:false,
-            msg: 'Usted no esta registrado'
-        })
+    // Verificar si el email existe
+    const usuario = await User.findOne({ email });
+
+    console.log(usuario);
+
+    if (!usuario) {
+        return res.status(400).json({
+            body: false,
+            msg: "Usuario / Password no son correctos - correo",
+        });
     }
 
-      //Si el usuario está inactivo
-      if (!user.active) {
+    // SI el usuario está activo
+    if (!usuario.active) {
         return res.status(400).json({
-            ok: false,
-            msg: 'Error al autenticarse, verifique las credenciales'
-        })
-    };
-     console.log("user",user)
-    // const validPassword = bcrypt.compareSync(password, user.password)
-    // if(!validPassword){
-    //     return res.json({
-    //         "msg": "Usuario / Password son incorrectas"
-    //     })
-    // }
-    //Si no se envian el email o el password 
-    if (!email || !password) {
+            body: false,
+            msg: "Usuario / Password no son correctos - estado: false",
+        });
+    }
+
+    // Verificar la contraseña
+    const validPassword = bcrypt.compareSync(password, usuario.password)
+    if (!validPassword) {
         return res.status(400).json({
-            ok: false,
-            msg: 'Error de autenticación'
-        })
-    };
+            body: false,
+            msg: "Usuario / Password no son correctos - password",
+        });
+    }
 
-   
-   
-  
 
-   
 
     // Generación del token de autenticación
-    const token = await generarJWT({ uid: user._id });
+    const token = await generarJWT({ uid: usuario._id });
 
     return res.json({
         ok: true,
         msg: "Usuario logueado exitosamente",
-        user,
+        usuario,
         token: token
     });
 
@@ -62,15 +54,15 @@ ctrlUser.login = async(req, res) => {
 
 
 //mostrar todos los usuarios
-ctrlUser.rutaGet = async(req, res) => {
+ctrlUser.rutaGet = async (req, res) => {
 
     const usuario = await User.find();
-    res.json({ ok: true, usuario});
+    res.json({ ok: true, usuario });
 
 };
 
 //Mostrar alumno por DNI
-ctrlUser.rutaGetDNI = async(req, res) => {
+ctrlUser.rutaGetDNI = async (req, res) => {
 
     const { numeroDni } = req.params
     try {
@@ -83,26 +75,28 @@ ctrlUser.rutaGetDNI = async(req, res) => {
     } catch (error) {
         res.json({
             ok: false,
-            msg:"Usuario no encontrado"
+            msg: "Usuario no encontrado"
         })
     }
-  
+
 
 }
 
 //agrega el usuario
 
-ctrlUser.rutaPost = async(req, res) => {
+ctrlUser.rutaPost = async (req, res) => {
 
     const { nombre, apellido, numeroDni, sexo, fechaDeNacimiento,
-        email, password, tipo, dataAlumno, dataProfesor, dataAdmin } = req.body;
+        email, password, tipo } = req.body;
 
-    const passwordHashed = bcrypt.hashSync(password,10);
+    console.log("body desde el back => ", req.body)
+    const passwordHashed = bcrypt.hashSync(password, 10);
 
     try {
+
         const usuario = new User({
             nombre, apellido, numeroDni, sexo, fechaDeNacimiento,
-            email, password: passwordHashed, tipo, dataAlumno, dataProfesor, dataAdmin
+            email, password: passwordHashed, tipo
         });
 
         //Guardar usuario en db
@@ -113,11 +107,13 @@ ctrlUser.rutaPost = async(req, res) => {
             msg: 'Usuario agregado exitosamente',
             usuario
         });
-        
+
     } catch (error) {
+        console.log(error)
         res.json({
-            ok: false, 
-            error: 'Error al guardar los datos del usuario'});
+            ok: false,
+            error: error
+        });
     };
 };
 
@@ -125,7 +121,7 @@ ctrlUser.rutaPost = async(req, res) => {
 
 //edita el usuario
 
-ctrlUser.rutaPut = async(req, res) => {
+ctrlUser.rutaPut = async (req, res) => {
 
 
     const { id } = req.params;
@@ -148,7 +144,7 @@ ctrlUser.rutaPut = async(req, res) => {
 };
 
 // eliminacion logica
-ctrlUser.rutaLogicalDelete = async(req, res) => {
+ctrlUser.rutaLogicalDelete = async (req, res) => {
 
     let { id } = req.params;
 
