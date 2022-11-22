@@ -5,7 +5,7 @@ const mensajeValidacion = "Todos los campos son requeridos";
 
 const validarUser = [
     check('nombre')
-    .notEmpty().withMessage(mensajeValidacion)
+    .notEmpty().withMessage(mensajeValidacion, "-nombre")
     .isString().isLength({ min:3, max:30}),
     
     check('apellido')

@@ -6,7 +6,9 @@ const validarCampos = (req, res, next) => {
     if (!errors.isEmpty()) {
         const errores = { errors: errors.array() }
 
-        return res.status(400).json(errores.errors[0]);
+        return res.status(400).json({
+            msg: errores.errors[0]
+        });
     }
 
     next();

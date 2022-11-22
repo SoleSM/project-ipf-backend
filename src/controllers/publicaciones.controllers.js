@@ -2,8 +2,20 @@ const ctrlPublicaciones = {};
 const Publicaciones = require('../models/publicaciones.models');
 
 ctrlPublicaciones.getPublicaciones = async (req, res) => {
-    const publicacion = await Publicaciones.find();
-    res.json(publicacion);
+
+    try {
+        const publicacion = await Publicaciones.find().populate("usuario","nombre").populate("comments.user", "nombre");
+        res.json({
+            ok:true,
+            publicacion
+        });
+    } catch (error) {
+        res.json({
+            ok: false,
+            msg: "Error al cargar las publicaciones"
+        })
+    }
+   
 }
 
 ctrlPublicaciones.getPublicacionesMateria = async (req, res) => {
