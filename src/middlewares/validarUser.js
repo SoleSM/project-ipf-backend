@@ -20,9 +20,6 @@ const validarUser = [
     .notEmpty().withMessage(mensajeValidacion)
     .isString(),
     
-    check('fechaDeNacimiento')
-    .notEmpty().withMessage(mensajeValidacion)
-    .isISO8601().toDate(),
     
     check('email')
     .notEmpty().withMessage(mensajeValidacion)

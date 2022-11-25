@@ -77,11 +77,11 @@ ctrlAuth.reNew = async (req = request, res = response) => {
 
 ctrlAuth.register = async (req, res = response) => {
 
-  const {nombre, apellido, numeroDni, fechaDeNacimiento, email,
+  const {nombre, apellido, numeroDni, email,
     password,sexo,tipo } = req.body;
 
   try {
-    const usuario = new User({nombre, apellido, numeroDni, fechaDeNacimiento, email,
+    const usuario = new User({nombre, apellido, numeroDni, email,
       password,sexo,tipo});
     // Encriptar la contraseña
     const salt = bcrypt.genSaltSync();
